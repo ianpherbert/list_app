@@ -1,0 +1,36 @@
+table {
+  text-align: center;
+}
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 50px;
+  background-color: rgb(1, 15, 15);
+  display: flex;
+
+  justify-content: space-evenly;
+}
+
+.bottom form {
+  display: flex;
+  width: 100%;
+}
+
+.bottom form > * {
+  width: 30%;
+  margin: auto;
+}
+
+.content {
+  margin-top: 10vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.content > * {
+  width: 100vw;
+}
