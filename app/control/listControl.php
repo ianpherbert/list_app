@@ -1,9 +1,15 @@
 <?php
 
+/**
+ * List controller class
+ * @author      Ian Herbert <ianpatrickherbert@gmail.com>
+ * @version     v.1.0 (09/12/2021)
+ */
 require_once "./model/listModel.php";
 
 class ListControl
 {
+    // List model instatiation
     private $model;
 
     public function __construct()
@@ -11,11 +17,13 @@ class ListControl
         $this->model = new ListModel();
     }
 
+    // return an array of all of the lists in the database
     public function listLists()
     {
         return $this->model->listAllLists();
     }
 
+    // Create new list in the database
     public function createList()
     {
         if (isset($_POST['item'])) {
@@ -27,6 +35,7 @@ class ListControl
         }
     }
 
+    // Delete list from database
     public function deleteList()
     {
         if (isset($_GET['id'])) {
@@ -38,7 +47,7 @@ class ListControl
         }
     }
 
-
+    // Retrieve a specific list from the database
     public function getList()
     {
         if (isset($_GET['id'])) {
@@ -50,6 +59,7 @@ class ListControl
         }
     }
 
+    // Add item to a specified list
     public function addItem()
     {
         if (isset($_GET['id'])) {
@@ -65,6 +75,7 @@ class ListControl
         }
     }
 
+    // Delete item from a specified list 
     public function deleteItem()
     {
         if (isset($_GET['id']) && isset($_GET["item"])) {

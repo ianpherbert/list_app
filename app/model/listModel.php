@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * List Model Class
+ * @author      Ian Herbert <ianpatrickherbert@gmail.com>
+ * @version     v.1.0 (09/12/2021)
+ */
+
 require_once "tools/PDOTools.php";
 
 class ListModel
@@ -35,6 +41,7 @@ class ListModel
         return $this->date;
     }
 
+    // Select all query from the lists table
     public function listAllLists()
     {
         $data = PDOTools::query("SELECT * FROM lists", [], true);
@@ -42,6 +49,7 @@ class ListModel
         return $data;
     }
 
+    // create a new list in the database
     public function createList()
     {
         $prepared_sql = "INSERT INTO lists (list_id, name, date ) VALUES (NULL, ?, NOW())";
@@ -50,14 +58,18 @@ class ListModel
         return PDOTools::query($prepared_sql, $array_values, false);
     }
 
+    // Delete list, and its items from the database
     public function deleteList()
     {
+        $prepared_sql_items = "DELETE FROM items WHERE list_id = ?";
         $prepared_sql = "DELETE FROM lists WHERE list_id = ?";
         $array_values = [$this->id];
+        PDOTools::query($prepared_sql_items, $array_values, false);
 
         return PDOTools::query($prepared_sql, $array_values, false);
     }
 
+    // Select a list from the database
     public function getList()
     {
         $prepared_sql = "SELECT * FROM items WHERE list_id = ?";
@@ -65,6 +77,8 @@ class ListModel
 
         return PDOTools::query($prepared_sql, $array_values, true);
     }
+
+    // Add item to the database with a FK list_id
     public function addItem($item, $quantity)
     {
         $prepared_sql = "INSERT INTO items (item_id, item, quantity, list_id ) VALUES (NULL, ?, ?, ?)";
@@ -73,6 +87,7 @@ class ListModel
         return PDOTools::query($prepared_sql, $array_values, false);
     }
 
+    // Delete an item from a list and from the database
     public function deleteItem($item)
     {
         $prepared_sql = "DELETE FROM items WHERE list_id = ? AND item_id = ?";
